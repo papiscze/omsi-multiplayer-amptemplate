@@ -1,0 +1,16 @@
+[
+  {
+    "Protocol": "UDP",
+    "Port": 27015,
+    "Ref": "Port",
+    "Name": "Game Port",
+    "Description": "The UDP port players connect to directly."
+  },
+  {
+    "Protocol": "TCP",
+    "Port": 27016,
+    "Ref": "WebPort",
+    "Name": "Web Port",
+    "Description": "HTTP/WebSocket port used for browser-based players, /status, /icon.png, /admin and /players."
+  }
+]

@@ -1,0 +1,302 @@
+[
+  {
+    "DisplayName": "neoOMSI version",
+    "Description": "The release version to download, e.g. 0.2.0-nightly.g2c75ea4f (see https://github.com/neoOMSI/neoOMSI/releases for the latest nightly tag). Change this and click Update to switch versions.",
+    "FieldName": "ServerVersion",
+    "Category": "General",
+    "InputType": "text",
+    "IncludeInCommandLine": false,
+    "Required": true,
+    "DefaultValue": "0.2.0-nightly.g2c75ea4f"
+  },
+  {
+    "DisplayName": "Disable Server Download",
+    "Category": "Updates",
+    "Description": "If set, the server files will not be automatically downloaded when the instance is updated. Turn this on if you upload the server files yourself (e.g. manually, or because this instance has no outbound internet access). Leave it off for the normal behaviour: Update downloads the selected version only if it isn't already installed.",
+    "Keywords": "disable,server,download,manual,disable-server-download",
+    "FieldName": "DisableServerDownload",
+    "InputType": "checkbox",
+    "ParamFieldName": "DisableServerDownload",
+    "IncludeInCommandLine": false,
+    "ExcludeFromImport": true,
+    "EnumValues": { "False": "false", "True": "true" },
+    "DefaultValue": "false"
+  },
+  {
+    "DisplayName": "Software rendering backend",
+    "Description": "This server has no window and draws nothing, but still needs a graphics backend to initialize. On a host with no GPU (e.g. a bare-metal server), pick a Mesa software renderer: Vulkan (lavapipe) is the default and usually fastest; OpenGL (llvmpipe) is a fallback if Vulkan initialization fails. Both are installed automatically. If you have a real GPU available to the container, you generally do not need to change this.",
+    "FieldName": "GraphicsBackend",
+    "Category": "General",
+    "InputType": "enum",
+    "IncludeInCommandLine": false,
+    "EnumValues": {
+      "vulkan": "Vulkan (lavapipe) - default",
+      "gl": "OpenGL (llvmpipe) - fallback"
+    },
+    "DefaultValue": "vulkan"
+  },
+  {
+    "DisplayName": "OMSI 2 installation path",
+    "Description": "Path to the original OMSI 2 installation that this server will use for its map, vehicle and mod content (the folder containing Omsi.exe, maps and Vehicles). Relative to this instance's working directory, e.g. ./omsi2 if you uploaded the installation into a folder named omsi2 here; an absolute path also works.",
+    "FieldName": "OMSI2Path",
+    "Category": "General",
+    "InputType": "text",
+    "IncludeInCommandLine": false,
+    "Required": true,
+    "DefaultValue": ""
+  },
+  {
+    "DisplayName": "Server name",
+    "Description": "Shown in the launcher's server list and to players when they join.",
+    "FieldName": "ServerName",
+    "ParamFieldName": "name",
+    "Category": "General",
+    "InputType": "text",
+    "DefaultValue": "neoOMSI Server"
+  },
+  {
+    "DisplayName": "MOTD",
+    "Description": "Message of the day shown to joining players.",
+    "FieldName": "Motd",
+    "ParamFieldName": "motd",
+    "Category": "General",
+    "InputType": "text",
+    "DefaultValue": "Welcome to neoOMSI"
+  },
+  {
+    "DisplayName": "Map",
+    "Description": "Path to the map's global.cfg, relative to the OMSI 2 folder, e.g. maps/Berlin-Spandau/global.cfg.",
+    "FieldName": "Map",
+    "ParamFieldName": "map",
+    "Category": "General",
+    "InputType": "text",
+    "Required": true,
+    "DefaultValue": "maps/Grundorf/global.cfg"
+  },
+  {
+    "DisplayName": "Allowed vehicles",
+    "Description": "Buses players may drive, separated by ; (e.g. Vehicles/MAN_SD200/MAN_SD77.bus). Leave blank to allow every bus installed on the server. The players' vehicle menu offers only these, and a player driving another bus is sent away.",
+    "FieldName": "Vehicles",
+    "ParamFieldName": "vehicles",
+    "Category": "General",
+    "InputType": "text",
+    "DefaultValue": ""
+  },
+  {
+    "DisplayName": "Date",
+    "Description": "The world date the session starts at.",
+    "FieldName": "Date",
+    "ParamFieldName": "date",
+    "Category": "World",
+    "InputType": "text",
+    "DefaultValue": "2026-01-01"
+  },
+  {
+    "DisplayName": "Time",
+    "Description": "The world clock time the session starts at.",
+    "FieldName": "Time",
+    "ParamFieldName": "time",
+    "Category": "World",
+    "InputType": "text",
+    "DefaultValue": "08:00"
+  },
+  {
+    "DisplayName": "Clock speed",
+    "Description": "How fast the world clock runs: 1 = real time, 2 = twice as fast, up to 30. Ignored when 'Follow real time' is on.",
+    "FieldName": "TimeSpeed",
+    "ParamFieldName": "time_speed",
+    "Category": "World",
+    "InputType": "number",
+    "minValue": "1",
+    "maxValue": "30",
+    "DefaultValue": "1"
+  },
+  {
+    "DisplayName": "Follow real time",
+    "Description": "The world clock follows this machine's real date and time. Date/Time above then only set the very first moment, and Clock speed and an admin's clock command are ignored.",
+    "FieldName": "RealTime",
+    "ParamFieldName": "real_time",
+    "Category": "World",
+    "InputType": "checkbox",
+    "EnumValues": { "False": "0", "True": "1" },
+    "DefaultValue": "False"
+  },
+  {
+    "DisplayName": "Time zone",
+    "Description": "IANA time zone the server's clock uses (e.g. Europe/Prague, Europe/Berlin, UTC). Matters mainly with 'Follow real time' on: the container usually runs in UTC by default, so the in-game clock can otherwise be hours off from your own.",
+    "FieldName": "TimeZone",
+    "Category": "World",
+    "InputType": "text",
+    "IncludeInCommandLine": false,
+    "DefaultValue": "UTC"
+  },
+  {
+    "DisplayName": "Weather",
+    "Description": "A weather file (e.g. Weather/#CAVOK.owt) or 'auto' to cycle weather automatically.",
+    "FieldName": "Weather",
+    "ParamFieldName": "weather",
+    "Category": "World",
+    "InputType": "text",
+    "DefaultValue": "auto"
+  },
+  {
+    "DisplayName": "Sync weather to real METAR",
+    "Description": "The weather follows the real METAR report of an airport, refreshed every ten minutes. Weather above then only sets the first moment, and admins cannot change it.",
+    "FieldName": "MetarSync",
+    "ParamFieldName": "metar_sync",
+    "Category": "World",
+    "InputType": "checkbox",
+    "EnumValues": { "False": "0", "True": "1" },
+    "DefaultValue": "False"
+  },
+  {
+    "DisplayName": "METAR station (ICAO code)",
+    "Description": "Airport ICAO code to sync weather from, e.g. EDDB. Leave blank to use the one nearest the map. Only used when 'Sync weather to real METAR' is on.",
+    "FieldName": "MetarStation",
+    "ParamFieldName": "metar_station",
+    "Category": "World",
+    "InputType": "text",
+    "DefaultValue": ""
+  },
+  {
+    "DisplayName": "Traffic density",
+    "Description": "How much AI traffic the world simulates.",
+    "FieldName": "Traffic",
+    "ParamFieldName": "traffic",
+    "Category": "World",
+    "InputType": "number",
+    "minValue": "0",
+    "maxValue": "100",
+    "DefaultValue": "50"
+  },
+  {
+    "DisplayName": "Timetable",
+    "Description": "Enables simulated timetable buses.",
+    "FieldName": "Timetable",
+    "ParamFieldName": "timetable",
+    "Category": "World",
+    "InputType": "checkbox",
+    "EnumValues": { "False": "0", "True": "1" },
+    "DefaultValue": "True"
+  },
+  {
+    "DisplayName": "Passengers",
+    "Description": "Enables simulated passengers at stops and aboard buses.",
+    "FieldName": "Passengers",
+    "ParamFieldName": "passengers",
+    "Category": "World",
+    "InputType": "checkbox",
+    "EnumValues": { "False": "0", "True": "1" },
+    "DefaultValue": "True"
+  },
+  {
+    "DisplayName": "Game port (UDP)",
+    "Description": "The UDP port players connect to directly.",
+    "FieldName": "Port",
+    "ParamFieldName": "port",
+    "Category": "Network",
+    "InputType": "number",
+    "minValue": "1",
+    "maxValue": "65535",
+    "DefaultValue": "18730"
+  },
+  {
+    "DisplayName": "Web port",
+    "Description": "HTTP/WebSocket port used for browser-based players, /status, /icon.png, /admin and /players.",
+    "FieldName": "WebPort",
+    "ParamFieldName": "web_port",
+    "Category": "Network",
+    "InputType": "number",
+    "minValue": "1",
+    "maxValue": "65535",
+    "DefaultValue": "18731"
+  },
+  {
+    "DisplayName": "Max players",
+    "Description": "Maximum number of concurrent players.",
+    "FieldName": "MaxPlayers",
+    "ParamFieldName": "max_players",
+    "Category": "Network",
+    "InputType": "number",
+    "minValue": "1",
+    "maxValue": "64",
+    "DefaultValue": "16"
+  },
+  {
+    "DisplayName": "Enable Cloudflare quick tunnel",
+    "Description": "Starts a free cloudflared quick tunnel so players can join over WebSocket without port forwarding.",
+    "FieldName": "Tunnel",
+    "ParamFieldName": "tunnel",
+    "Category": "Network",
+    "InputType": "checkbox",
+    "EnumValues": { "False": "0", "True": "1" },
+    "DefaultValue": "False"
+  },
+  {
+    "DisplayName": "Interest radius",
+    "Description": "Tile streaming radius around each player's bus, in metres. 0 loads the whole map.",
+    "FieldName": "Radius",
+    "ParamFieldName": "radius",
+    "Category": "Network",
+    "InputType": "number",
+    "minValue": "0",
+    "DefaultValue": "0"
+  },
+  {
+    "DisplayName": "Share player positions",
+    "Description": "Enables GET /players (live map data: position, heading, speed). Off by default for privacy.",
+    "FieldName": "SharePositions",
+    "ParamFieldName": "share_positions",
+    "Category": "Network",
+    "InputType": "checkbox",
+    "EnumValues": { "False": "0", "True": "1" },
+    "DefaultValue": "False"
+  },
+  {
+    "DisplayName": "Admin password",
+    "Description": "Required to use POST /admin for remote admin commands (clock, weather, say, kick). Leave blank to disable remote admin.",
+    "FieldName": "AdminPassword",
+    "ParamFieldName": "admin_password",
+    "Category": "Administration",
+    "InputType": "password",
+    "DefaultValue": ""
+  },
+  {
+    "DisplayName": "Voice channel",
+    "Description": "GreenTeaSpeak channel id or name that players are moved into for proximity voice chat. Leave blank to disable voice chat.",
+    "FieldName": "VoiceChannel",
+    "ParamFieldName": "voice_channel",
+    "Category": "Voice Chat",
+    "InputType": "text",
+    "DefaultValue": ""
+  },
+  {
+    "DisplayName": "Voice channel password",
+    "Description": "Sent to every joining player so their game can enter the voice channel. Keeps strangers on the voice server out.",
+    "FieldName": "VoiceChannelPassword",
+    "ParamFieldName": "voice_channel_password",
+    "Category": "Voice Chat",
+    "InputType": "password",
+    "DefaultValue": ""
+  },
+  {
+    "DisplayName": "Voice server UID",
+    "Description": "The unique id of the GreenTeaSpeak voice server (shown in GreenTeaSpeak's server info panel). Required for voice chat to work.",
+    "FieldName": "VoiceServerUid",
+    "ParamFieldName": "voice_server_uid",
+    "Category": "Voice Chat",
+    "InputType": "text",
+    "DefaultValue": ""
+  },
+  {
+    "DisplayName": "Voice range (metres)",
+    "Description": "Maximum distance players can hear each other, muffled through bus bodywork.",
+    "FieldName": "VoiceRange",
+    "ParamFieldName": "voice_range",
+    "Category": "Voice Chat",
+    "InputType": "number",
+    "minValue": "1",
+    "DefaultValue": "20",
+    "Suffix": "m"
+  }
+]

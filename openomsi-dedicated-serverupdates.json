@@ -1,0 +1,60 @@
+[
+  {
+    "UpdateStageName": "openOMSI Dedicated Server Download (Linux x64)",
+    "UpdateSourcePlatform": "Linux",
+    "UpdateSourceArch": "x86_64",
+    "UpdateSource": "Executable",
+    "UpdateSourceData": "/bin/bash",
+    "UpdateSourceArgs": "-c \"cd \\\"{{$FullRootDir}}\\\" && InstalledVersion=\\\"\\\"; [[ -f ./.installedversion ]] && InstalledVersion=\\\"$(cat ./.installedversion 2>/dev/null)\\\"; if [[ -x ./openomsi ]] && [[ \\\"$InstalledVersion\\\" == \\\"{{ServerVersion}}\\\" ]]; then echo \\\"openOMSI server {{ServerVersion}} is already installed. Skipping download\\\"; exit 0; fi; Asset=\\\"openOMSI-{{ServerVersion}}-server-linux-x64.zip\\\"; Url=\\\"https://github.com/openOMSI-Project/openOMSI/releases/download/v{{ServerVersion}}/$Asset\\\"; echo \\\"Downloading $Asset ...\\\"; curl -L --fail --progress-bar -o ./openomsi-server.zip \\\"$Url\\\" || { echo \\\"Download failed from GitHub (check the version number - $Url). This is a fault with the download, not AMP.\\\" >&2; exit 1; }; rm -f ./openomsi; unzip -oq ./openomsi-server.zip -d . && rm -f ./openomsi-server.zip && chmod +x ./openomsi && printf \\\"%s\\\" \\\"{{ServerVersion}}\\\" > ./.installedversion && echo \\\"openOMSI server {{ServerVersion}} installed\\\"\"",
+    "UpdateSourceConditionSetting": "DisableServerDownload",
+    "UpdateSourceConditionValue": "false",
+    "SkipOnFailure": false,
+    "ProcessToolOutput": true
+  },
+  {
+    "UpdateStageName": "openOMSI Dedicated Server Download (Linux ARM64)",
+    "UpdateSourcePlatform": "Linux",
+    "UpdateSourceArch": "aarch64",
+    "UpdateSource": "Executable",
+    "UpdateSourceData": "/bin/bash",
+    "UpdateSourceArgs": "-c \"cd \\\"{{$FullRootDir}}\\\" && InstalledVersion=\\\"\\\"; [[ -f ./.installedversion ]] && InstalledVersion=\\\"$(cat ./.installedversion 2>/dev/null)\\\"; if [[ -x ./openomsi ]] && [[ \\\"$InstalledVersion\\\" == \\\"{{ServerVersion}}\\\" ]]; then echo \\\"openOMSI server {{ServerVersion}} is already installed. Skipping download\\\"; exit 0; fi; Asset=\\\"openOMSI-{{ServerVersion}}-server-linux-arm64.zip\\\"; Url=\\\"https://github.com/openOMSI-Project/openOMSI/releases/download/v{{ServerVersion}}/$Asset\\\"; echo \\\"Downloading $Asset ...\\\"; curl -L --fail --progress-bar -o ./openomsi-server.zip \\\"$Url\\\" || { echo \\\"Download failed from GitHub (check the version number - $Url). This is a fault with the download, not AMP.\\\" >&2; exit 1; }; rm -f ./openomsi; unzip -oq ./openomsi-server.zip -d . && rm -f ./openomsi-server.zip && chmod +x ./openomsi && printf \\\"%s\\\" \\\"{{ServerVersion}}\\\" > ./.installedversion && echo \\\"openOMSI server {{ServerVersion}} installed\\\"\"",
+    "UpdateSourceConditionSetting": "DisableServerDownload",
+    "UpdateSourceConditionValue": "false",
+    "SkipOnFailure": false,
+    "ProcessToolOutput": true
+  },
+  {
+    "UpdateStageName": "openOMSI Dedicated Server Download (Windows x64)",
+    "UpdateSourcePlatform": "Windows",
+    "UpdateSourceArch": "x86_64",
+    "UpdateSource": "Executable",
+    "UpdateSourceData": "powershell.exe",
+    "UpdateSourceArgs": "-NoProfile -Command \"$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Set-Location -Path '{{$FullRootDir}}'; $InstalledVersion = ''; if (Test-Path -LiteralPath './.installedversion' -PathType Leaf) { $InstalledVersion = Get-Content -LiteralPath './.installedversion' -Raw -ErrorAction SilentlyContinue }; if ((Test-Path -LiteralPath './openomsi.exe' -PathType Leaf) -and ($InstalledVersion -eq '{{ServerVersion}}')) { Write-Output \\\"openOMSI server {{ServerVersion}} is already installed. Skipping download\\\"; exit 0 }; $Asset = \\\"openOMSI-{{ServerVersion}}-server-windows-x64.zip\\\"; $Url = \\\"https://github.com/openOMSI-Project/openOMSI/releases/download/v{{ServerVersion}}/$Asset\\\"; Write-Output \\\"Downloading $Asset ...\\\"; try { Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile './openomsi-server.zip' -ErrorAction Stop } catch { Write-Output \\\"Download failed from GitHub (check the version number - $Url). This is a fault with the download, not AMP.\\\"; exit 1 }; if (Test-Path -LiteralPath './openomsi.exe') { Remove-Item -LiteralPath './openomsi.exe' -Force -ErrorAction SilentlyContinue }; Expand-Archive -LiteralPath './openomsi-server.zip' -DestinationPath '.' -Force; Remove-Item -LiteralPath './openomsi-server.zip' -Force -ErrorAction SilentlyContinue; Set-Content -LiteralPath './.installedversion' -Value '{{ServerVersion}}' -Encoding UTF8 -NoNewline -Force; Write-Output \\\"openOMSI server {{ServerVersion}} installed\\\"\"",
+    "UpdateSourceConditionSetting": "DisableServerDownload",
+    "UpdateSourceConditionValue": "false",
+    "SkipOnFailure": false,
+    "ProcessToolOutput": true
+  },
+  {
+    "UpdateStageName": "openOMSI Dedicated Server Download (Windows ARM64)",
+    "UpdateSourcePlatform": "Windows",
+    "UpdateSourceArch": "aarch64",
+    "UpdateSource": "Executable",
+    "UpdateSourceData": "powershell.exe",
+    "UpdateSourceArgs": "-NoProfile -Command \"$ProgressPreference='SilentlyContinue'; [Net.ServicePointManager]::SecurityProtocol = [Net.SecurityProtocolType]::Tls12; Set-Location -Path '{{$FullRootDir}}'; $InstalledVersion = ''; if (Test-Path -LiteralPath './.installedversion' -PathType Leaf) { $InstalledVersion = Get-Content -LiteralPath './.installedversion' -Raw -ErrorAction SilentlyContinue }; if ((Test-Path -LiteralPath './openomsi.exe' -PathType Leaf) -and ($InstalledVersion -eq '{{ServerVersion}}')) { Write-Output \\\"openOMSI server {{ServerVersion}} is already installed. Skipping download\\\"; exit 0 }; $Asset = \\\"openOMSI-{{ServerVersion}}-server-windows-arm64.zip\\\"; $Url = \\\"https://github.com/openOMSI-Project/openOMSI/releases/download/v{{ServerVersion}}/$Asset\\\"; Write-Output \\\"Downloading $Asset ...\\\"; try { Invoke-WebRequest -UseBasicParsing -Uri $Url -OutFile './openomsi-server.zip' -ErrorAction Stop } catch { Write-Output \\\"Download failed from GitHub (check the version number - $Url). This is a fault with the download, not AMP.\\\"; exit 1 }; if (Test-Path -LiteralPath './openomsi.exe') { Remove-Item -LiteralPath './openomsi.exe' -Force -ErrorAction SilentlyContinue }; Expand-Archive -LiteralPath './openomsi-server.zip' -DestinationPath '.' -Force; Remove-Item -LiteralPath './openomsi-server.zip' -Force -ErrorAction SilentlyContinue; Set-Content -LiteralPath './.installedversion' -Value '{{ServerVersion}}' -Encoding UTF8 -NoNewline -Force; Write-Output \\\"openOMSI server {{ServerVersion}} installed\\\"\"",
+    "UpdateSourceConditionSetting": "DisableServerDownload",
+    "UpdateSourceConditionValue": "false",
+    "SkipOnFailure": false,
+    "ProcessToolOutput": true
+  },
+  {
+    "UpdateStageName": "Server download disabled - skipping",
+    "UpdateSourcePlatform": "All",
+    "UpdateSource": "Executable",
+    "UpdateSourceData": "/bin/bash",
+    "UpdateSourceArgs": "-c \"echo 'Server download disabled in settings - using the files already in place.'\"",
+    "UpdateSourceConditionSetting": "DisableServerDownload",
+    "UpdateSourceConditionValue": "true",
+    "SkipOnFailure": true
+  }
+]

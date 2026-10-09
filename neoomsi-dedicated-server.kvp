@@ -1,0 +1,84 @@
+Meta.DisplayName=neoOMSI Dedicated Server
+Meta.Description=neoOMSI dedicated server - headless OMSI 2-compatible multiplayer host (requires the original OMSI 2 content)
+Meta.OS=Windows, Linux
+Meta.AarchSupport=Unknown
+Meta.Arch=x86_64
+Meta.Author=Roman
+Meta.URL=https://github.com/neoOMSI/neoOMSI
+Meta.DisplayImageSource=url:https://neoomsi.com/assets/wordmark-gradient-light-CxTdWlQ9.svg
+Meta.EndpointURIFormat=
+Meta.ConfigManifest=neoomsi-dedicated-serverconfig.json
+Meta.MetaConfigManifest=neoomsi-dedicated-servermetaconfig.json
+Meta.ConfigRoot=neoomsi-dedicated-server.kvp
+Meta.MinAMPVersion=2.8.0.0
+Meta.SpecificDockerImage=
+Meta.DockerRequired=False
+Meta.ContainerPolicy=RecommendedOnLinux
+Meta.ContainerPolicyReason=No GPU is required to run a dedicated server, but a Vulkan/GL loader must be present; the container image installs Mesa's software renderers (lavapipe for Vulkan, llvmpipe for OpenGL) automatically so it works on hosts with no graphics card.
+Meta.Prerequisites=[]
+Meta.ExtraContainerPackages=["mesa-vulkan-drivers", "libvulkan1", "mesa-utils", "libgl1-mesa-dri"]
+Meta.ConfigReleaseState=Release
+Meta.NoCommercialUsage=False
+Meta.ConfigVersion=1.0
+Meta.AppConfigId=3ad9f4d2-8f04-4027-b577-d221a5b36b34
+
+App.DisplayName=neoOMSI Dedicated Server
+App.RootDir=./GenericApplication/
+App.BaseDirectory=./GenericApplication/
+App.WorkingDir=./
+App.ExecutableWin=neoomsi.exe
+App.ExecutableLinux=neoomsi
+App.Compatibility=0
+App.ForceUpdate=False
+App.ForceUpdateReason=
+
+App.CommandLineArgs=--root "{{OMSI2Path}}" --server "./server.cfg"
+App.CommandLineParameterFormat=--{0} "{1}"
+App.CommandLineParameterDelimiter= 
+
+App.AppSettings={"OMSI2Path": "", "ServerVersion": "0.2.0-nightly.g2c75ea4f", "GraphicsBackend": "vulkan"}
+
+App.EnvironmentVariables={"WGPU_BACKEND": "{{GraphicsBackend}}", "LIBGL_ALWAYS_SOFTWARE": "1", "LP_NUM_THREADS": "4", "TZ": "{{TimeZone}}"}
+
+App.ExitMethod=CtrlC
+App.ExitString=
+App.ExitTimeout=30
+App.RestartDelaySeconds=0
+
+App.HasWriteableConsole=True
+App.HasReadableConsole=True
+App.IgnoreSTDOUTAfterRCON=False
+App.ApplicationReadyMode=Immediate
+
+App.ApplicationIPBinding=0.0.0.0
+App.ForceIPBinding=False
+App.SupportsIPv6=False
+App.ExternalIP=
+
+App.Ports=@IncludeJson[neoomsi-dedicated-serverports.json]
+App.PrimaryApplicationPortRef=Port
+App.AdminPortRef=0
+
+App.RemoteAdminPort=0
+App.RemoteAdminPassword=
+App.UseRandomAdminPassword=False
+App.AdminLoginTransform=None
+
+App.MaxUsers=16
+App.AdminMethod=STDIO
+
+App.UDPLogger=False
+App.SteamUpdateAnonymousLogin=False
+App.SteamForceWindowsVersion=False
+App.SteamForceLoginPrompt=False
+App.RapidStartup=False
+App.DumpFullChildProcessTree=True
+
+App.UpdateSources=@IncludeJson[neoomsi-dedicated-serverupdates.json]
+
+App.SmartExcludeSupported=True
+App.SmartExcludeExemptions=["*.cfg","*.log","*.installedversion","server-icon.png"]
+
+Console.DownloadProgressRegex=^(\[=*\s*\] (?<percent>[\d.]+%) \((?<progressValue>[\d.]*) (?<progressUnits>[KMG]B) \/ (?<totalValue>[\d.]*) (?<totalUnits>[KMG]B)\)|#*\s*(?<percent>[\d.]+%))$
+Console.UserJoinRegex=^\[[\d\-T:]+Z\s+\w+\s+[\w:]+\]\s+LAN: player (?<userid>\d+) '(?<username>[^']+)' joined from (?<endpoint>[\d.]+:\d+) with .*$
+Console.UserLeaveRegex=^\[[\d\-T:]+Z\s+\w+\s+[\w:]+\]\s+LAN: player (?<userid>\d+) '(?<username>[^']+)' left$
