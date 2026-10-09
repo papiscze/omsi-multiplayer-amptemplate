@@ -1,6 +1,6 @@
 Meta.DisplayName=neoOMSI Dedicated Server
 Meta.Description=neoOMSI dedicated server - headless OMSI 2-compatible multiplayer host (requires the original OMSI 2 content)
-Meta.OS=Windows, Linux
+Meta.OS=Linux
 Meta.AarchSupport=Unknown
 Meta.Arch=x86_64
 Meta.Author=Roman
