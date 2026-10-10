@@ -1,6 +1,6 @@
 Meta.DisplayName=openOMSI Dedicated Server
 Meta.Description=openOMSI dedicated server - headless OMSI 2 multiplayer host (requires the original OMSI 2 content)
-Meta.OS=Linux
+Meta.OS=Windows, Linux
 Meta.AarchSupport=Unknown
 Meta.Arch=x86_64
 Meta.Author=Roman
@@ -80,5 +80,5 @@ App.SmartExcludeSupported=True
 App.SmartExcludeExemptions=["*.cfg","*.log","*.installedversion","server-icon.png"]
 
 Console.DownloadProgressRegex=^(\[=*\s*\] (?<percent>[\d.]+%) \((?<progressValue>[\d.]*) (?<progressUnits>[KMG]B) \/ (?<totalValue>[\d.]*) (?<totalUnits>[KMG]B)\)|#*\s*(?<percent>[\d.]+%))$
-Console.UserJoinRegex=^\[[\d\-T:]+Z\s+\w+\s+[\w:]+\]\s+LAN: player (?<userid>\d+) '(?<username>[^']+)' joined from (?<endpoint>[\d.]+:\d+) with .*$
-Console.UserLeaveRegex=^\[[\d\-T:]+Z\s+\w+\s+[\w:]+\]\s+LAN: player (?<userid>\d+) '(?<username>[^']+)' left$
+Console.UserJoinRegex=^\[[\d\-T:]+Z\s+\w+\s+[\w:]+\]\s+LAN: player (?<userid>\d+) '(?<username>[^']*)' joined from (?<endpoint>[\d.]+:\d+) with .*$
+Console.UserLeaveRegex=^\[[\d\-T:]+Z\s+\w+\s+[\w:]+\]\s+LAN: player (?<userid>\d+) '(?<username>[^']*)' left$

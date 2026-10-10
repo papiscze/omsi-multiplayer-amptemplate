@@ -250,14 +250,15 @@
   {
     "DisplayName": "Max players",
     "Description": "Maximum number of concurrent players.",
-    "FieldName": "MaxPlayers",
+    "FieldName": "$MaxUsers",
     "ParamFieldName": "max_players",
     "Category": "General",
     "InputType": "number",
     "minValue": "1",
     "maxValue": "64",
     "DefaultValue": "16",
-    "Subcategory": "Network:network:1"
+    "Subcategory": "Network:network:1",
+    "Keywords": "players,maxplayers,concurrent,max,maximum,limit"
   },
   {
     "DisplayName": "Enable Cloudflare quick tunnel",

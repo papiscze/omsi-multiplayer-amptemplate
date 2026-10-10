@@ -25,7 +25,7 @@
           "passengers": "Passengers",
           "port": "Port",
           "web_port": "WebPort",
-          "max_players": "MaxPlayers",
+          "max_players": "$MaxUsers",
           "tunnel": "Tunnel",
           "radius": "Radius",
           "share_positions": "SharePositions",
