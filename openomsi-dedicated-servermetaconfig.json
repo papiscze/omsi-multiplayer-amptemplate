@@ -33,7 +33,8 @@
           "voice_channel": "VoiceChannel",
           "voice_channel_password": "VoiceChannelPassword",
           "voice_server_uid": "VoiceServerUid",
-          "voice_range": "VoiceRange"
+          "voice_range": "VoiceRange",
+          "voice_radio": "VoiceRadio"
         }
       }
     ]

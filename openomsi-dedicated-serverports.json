@@ -8,7 +8,7 @@
   },
   {
     "Protocol": "TCP",
-    "Port": 27016,
+    "Port": 27025,
     "Ref": "WebPort",
     "Name": "Web Port",
     "Description": "HTTP/WebSocket port used for browser-based players, /status, /icon.png, /admin and /players."

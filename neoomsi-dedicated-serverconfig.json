@@ -192,7 +192,7 @@
     "InputType": "number",
     "minValue": "0",
     "maxValue": "100",
-    "DefaultValue": "50",
+    "DefaultValue": "30",
     "Subcategory": "World:world:-1"
   },
   {
@@ -232,7 +232,7 @@
     "InputType": "number",
     "minValue": "1",
     "maxValue": "65535",
-    "DefaultValue": "18730",
+    "DefaultValue": "27015",
     "Subcategory": "Network:network:1"
   },
   {
@@ -244,7 +244,7 @@
     "InputType": "number",
     "minValue": "1",
     "maxValue": "65535",
-    "DefaultValue": "18731",
+    "DefaultValue": "27025",
     "Subcategory": "Network:network:1"
   },
   {
@@ -308,47 +308,5 @@
     "InputType": "password",
     "DefaultValue": "",
     "Subcategory": "Administration:admin:2"
-  },
-  {
-    "DisplayName": "Voice channel",
-    "Description": "GreenTeaSpeak channel id or name that players are moved into for proximity voice chat. Leave blank to disable voice chat.",
-    "FieldName": "VoiceChannel",
-    "ParamFieldName": "voice_channel",
-    "Category": "General",
-    "InputType": "text",
-    "DefaultValue": "",
-    "Subcategory": "Voice Chat:voice:3"
-  },
-  {
-    "DisplayName": "Voice channel password",
-    "Description": "Sent to every joining player so their game can enter the voice channel. Keeps strangers on the voice server out.",
-    "FieldName": "VoiceChannelPassword",
-    "ParamFieldName": "voice_channel_password",
-    "Category": "General",
-    "InputType": "password",
-    "DefaultValue": "",
-    "Subcategory": "Voice Chat:voice:3"
-  },
-  {
-    "DisplayName": "Voice server UID",
-    "Description": "The unique id of the GreenTeaSpeak voice server (shown in GreenTeaSpeak's server info panel). Required for voice chat to work.",
-    "FieldName": "VoiceServerUid",
-    "ParamFieldName": "voice_server_uid",
-    "Category": "General",
-    "InputType": "text",
-    "DefaultValue": "",
-    "Subcategory": "Voice Chat:voice:3"
-  },
-  {
-    "DisplayName": "Voice range (metres)",
-    "Description": "Maximum distance players can hear each other, muffled through bus bodywork.",
-    "FieldName": "VoiceRange",
-    "ParamFieldName": "voice_range",
-    "Category": "General",
-    "InputType": "number",
-    "minValue": "1",
-    "DefaultValue": "20",
-    "Suffix": "m",
-    "Subcategory": "Voice Chat:voice:3"
   }
 ]

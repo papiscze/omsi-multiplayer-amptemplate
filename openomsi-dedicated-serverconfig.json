@@ -192,7 +192,7 @@
     "InputType": "number",
     "minValue": "0",
     "maxValue": "100",
-    "DefaultValue": "50",
+    "DefaultValue": "30",
     "Subcategory": "World:world:-1"
   },
   {
@@ -244,7 +244,7 @@
     "InputType": "number",
     "minValue": "1",
     "maxValue": "65535",
-    "DefaultValue": "27016",
+    "DefaultValue": "27025",
     "Subcategory": "Network:network:1"
   },
   {
@@ -349,6 +349,17 @@
     "minValue": "1",
     "DefaultValue": "20",
     "Suffix": "m",
+    "Subcategory": "Voice Chat:voice:3"
+  },
+  {
+    "DisplayName": "Bus radio",
+    "Description": "Gives drivers a bindable map-wide bus radio on top of proximity voice chat (default key: X). Only used when voice chat is configured.",
+    "FieldName": "VoiceRadio",
+    "ParamFieldName": "voice_radio",
+    "Category": "General",
+    "InputType": "checkbox",
+    "EnumValues": { "False": "0", "True": "1" },
+    "DefaultValue": "True",
     "Subcategory": "Voice Chat:voice:3"
   }
 ]

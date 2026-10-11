@@ -29,11 +29,7 @@
           "tunnel": "Tunnel",
           "radius": "Radius",
           "share_positions": "SharePositions",
-          "admin_password": "AdminPassword",
-          "voice_channel": "VoiceChannel",
-          "voice_channel_password": "VoiceChannelPassword",
-          "voice_server_uid": "VoiceServerUid",
-          "voice_range": "VoiceRange"
+          "admin_password": "AdminPassword"
         }
       }
     ]
