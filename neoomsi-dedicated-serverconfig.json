@@ -308,5 +308,31 @@
     "InputType": "password",
     "DefaultValue": "",
     "Subcategory": "Administration:admin:2"
+  },
+  {
+    "DisplayName": "Voice chat",
+    "Description": "Players talk to each other: a voice is heard up to Voice range metres away, muffled through a bus's closed doors. A dispatch radio reaches everybody. The server passes the voices on without listening to them.",
+    "FieldName": "Voice",
+    "ParamFieldName": "voice",
+    "Category": "General",
+    "InputType": "checkbox",
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
+    "DefaultValue": "True",
+    "Subcategory": "Voice Chat:voice:3"
+  },
+  {
+    "DisplayName": "Voice range (metres)",
+    "Description": "Maximum distance players can hear each other, muffled through a bus's closed doors.",
+    "FieldName": "VoiceRange",
+    "ParamFieldName": "voice_range",
+    "Category": "General",
+    "InputType": "number",
+    "minValue": "1",
+    "DefaultValue": "60",
+    "Suffix": "m",
+    "Subcategory": "Voice Chat:voice:3"
   }
 ]

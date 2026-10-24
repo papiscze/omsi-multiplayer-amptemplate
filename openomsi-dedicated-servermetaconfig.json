@@ -23,6 +23,7 @@
           "traffic": "Traffic",
           "timetable": "Timetable",
           "passengers": "Passengers",
+          "passenger_density": "PassengerDensity",
           "port": "Port",
           "web_port": "WebPort",
           "max_players": "$MaxUsers",
@@ -30,11 +31,20 @@
           "radius": "Radius",
           "share_positions": "SharePositions",
           "admin_password": "AdminPassword",
+          "moderator_password": "ModeratorPassword",
+          "admin_web": "AdminWeb",
+          "admin_web_origins": "AdminWebOrigins",
+          "admin_trusted_proxies": "AdminTrustedProxies",
+          "admin_proxy_header": "AdminProxyHeader",
+          "gateway_proxy_header": "GatewayProxyHeader",
           "voice_channel": "VoiceChannel",
           "voice_channel_password": "VoiceChannelPassword",
           "voice_server_uid": "VoiceServerUid",
           "voice_range": "VoiceRange",
-          "voice_radio": "VoiceRadio"
+          "voice_radio": "VoiceRadio",
+          "accept_uploads": "AcceptUploads",
+          "uploads_keep_days": "UploadsKeepDays",
+          "share_maps": "ShareMaps"
         }
       }
     ]

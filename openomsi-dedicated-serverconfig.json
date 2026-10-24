@@ -224,6 +224,18 @@
     "Subcategory": "World:world:-1"
   },
   {
+    "DisplayName": "Passenger density",
+    "Description": "Factor on the map's own passenger demand for the time of day: 1 = as the map says, 0.5 = half, 2 = twice (0 to 3). 0 stops new people appearing but keeps existing passengers on (to switch passengers off entirely, use Passengers above). Can be changed by admins while the server runs; players already aboard are unaffected.",
+    "FieldName": "PassengerDensity",
+    "ParamFieldName": "passenger_density",
+    "Category": "General",
+    "InputType": "number",
+    "minValue": "0",
+    "maxValue": "3",
+    "DefaultValue": "1",
+    "Subcategory": "World:world:-1"
+  },
+  {
     "DisplayName": "Game port (UDP)",
     "Description": "The UDP port players connect to directly.",
     "FieldName": "Port",
@@ -301,12 +313,86 @@
   },
   {
     "DisplayName": "Admin password",
-    "Description": "Required to use POST /admin for remote admin commands (clock, weather, say, kick). Leave blank to disable remote admin.",
+    "Description": "Players who enter this password with /admin get full Administration menu access: send players away, bring them, the clock, its speed, the weather, the traffic and the passengers. Also required for the web admin panel and its POST /admin API (clock, weather, say, kick). At least 12 characters. Leave blank to disable admin access.",
     "FieldName": "AdminPassword",
     "ParamFieldName": "admin_password",
     "Category": "General",
     "InputType": "password",
     "DefaultValue": "",
+    "Subcategory": "Administration:admin:2"
+  },
+  {
+    "DisplayName": "Moderator password",
+    "Description": "Players who enter this password with /admin get moderator powers: see players, send them away, and talk to them - but not the clock, weather, traffic, passengers, or bringing players to their bus. At least 12 characters. Leave blank to disable moderators.",
+    "FieldName": "ModeratorPassword",
+    "ParamFieldName": "moderator_password",
+    "Category": "General",
+    "InputType": "password",
+    "DefaultValue": "",
+    "Subcategory": "Administration:admin:2"
+  },
+  {
+    "DisplayName": "Admin web panel access",
+    "Description": "Who may reach the web admin panel (http://127.0.0.1:<web_port>/admin/) and its API. Local: this machine only (not through the tunnel or a proxy). Remote: also over HTTPS through the proxies listed in Trusted proxies below (this machine by default - with the Cloudflare tunnel on, that is the public tunnel, so the passwords alone guard it then). Off: nobody.",
+    "FieldName": "AdminWeb",
+    "ParamFieldName": "admin_web",
+    "Category": "General",
+    "InputType": "enum",
+    "EnumValues": {
+      "local": "Local only",
+      "remote": "Remote (via trusted proxies)",
+      "off": "Off"
+    },
+    "DefaultValue": "local",
+    "Subcategory": "Administration:admin:2"
+  },
+  {
+    "DisplayName": "Admin web panel allowed origins",
+    "Description": "Other https:// sites whose pages may use the admin web panel's API, separated by ;. Leave blank unless you are embedding the panel in a website of your own.",
+    "FieldName": "AdminWebOrigins",
+    "ParamFieldName": "admin_web_origins",
+    "Category": "General",
+    "InputType": "text",
+    "DefaultValue": "",
+    "Subcategory": "Administration:admin:2"
+  },
+  {
+    "DisplayName": "Trusted proxies",
+    "Description": "Addresses of reverse proxies allowed to forward admin web panel traffic when Admin web panel access is set to Remote. Leave blank if you are not running your own reverse proxy in front of this server.",
+    "FieldName": "AdminTrustedProxies",
+    "ParamFieldName": "admin_trusted_proxies",
+    "Category": "General",
+    "InputType": "text",
+    "DefaultValue": "",
+    "Subcategory": "Administration:admin:2"
+  },
+  {
+    "DisplayName": "Admin proxy header",
+    "Description": "The header a trusted admin proxy uses to name the real client: x-forwarded-for (its last address - Caddy, nginx, Cloudflare), x-real-ip, or cf-connecting-ip. Only this header is believed.",
+    "FieldName": "AdminProxyHeader",
+    "ParamFieldName": "admin_proxy_header",
+    "Category": "General",
+    "InputType": "enum",
+    "EnumValues": {
+      "x-forwarded-for": "X-Forwarded-For",
+      "x-real-ip": "X-Real-IP",
+      "cf-connecting-ip": "CF-Connecting-IP"
+    },
+    "DefaultValue": "x-forwarded-for",
+    "Subcategory": "Administration:admin:2"
+  },
+  {
+    "DisplayName": "Gateway proxy header",
+    "Description": "The header used to identify players who connect by WebSocket through a proxy on this machine: x-forwarded-for, or cf-connecting-ip with Cloudflare's proxy (the orange cloud) in front.",
+    "FieldName": "GatewayProxyHeader",
+    "ParamFieldName": "gateway_proxy_header",
+    "Category": "General",
+    "InputType": "enum",
+    "EnumValues": {
+      "x-forwarded-for": "X-Forwarded-For",
+      "cf-connecting-ip": "CF-Connecting-IP"
+    },
+    "DefaultValue": "x-forwarded-for",
     "Subcategory": "Administration:admin:2"
   },
   {
@@ -358,8 +444,51 @@
     "ParamFieldName": "voice_radio",
     "Category": "General",
     "InputType": "checkbox",
-    "EnumValues": { "False": "0", "True": "1" },
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
     "DefaultValue": "True",
     "Subcategory": "Voice Chat:voice:3"
+  },
+  {
+    "DisplayName": "Accept vehicle uploads",
+    "Description": "A player whose bus this server does not have sends it the files that bus uses (the variant and paint driven, not the whole pack); the server keeps them and passes them on to other players, so nobody sees a stand-in. Taken without asking and kept after a restart. With this on and Allowed vehicles above left blank, players may choose any bus.",
+    "FieldName": "AcceptUploads",
+    "ParamFieldName": "accept_uploads",
+    "Category": "General",
+    "InputType": "checkbox",
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
+    "DefaultValue": "True",
+    "Subcategory": "Content:content:5"
+  },
+  {
+    "DisplayName": "Keep uploaded vehicles (days)",
+    "Description": "Days an uploaded bus is kept when nobody drives it. When disk space runs short, buses nobody drives now go first, the least recently used first - no bus is refused purely for its size.",
+    "FieldName": "UploadsKeepDays",
+    "ParamFieldName": "uploads_keep_days",
+    "Category": "General",
+    "InputType": "number",
+    "minValue": "1",
+    "DefaultValue": "30",
+    "Suffix": "days",
+    "Subcategory": "Content:content:5"
+  },
+  {
+    "DisplayName": "Share map with joining players",
+    "Description": "A player who joins without the server's map gets it from the server (the map and the objects, splines and vehicles it uses - can be gigabytes for a big map). Off: players install the map themselves and are told which one is missing, keeping the server's bandwidth free for players' buses.",
+    "FieldName": "ShareMaps",
+    "ParamFieldName": "share_maps",
+    "Category": "General",
+    "InputType": "checkbox",
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
+    "DefaultValue": "False",
+    "Subcategory": "Content:content:5"
   }
 ]
