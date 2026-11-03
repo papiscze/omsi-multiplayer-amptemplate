@@ -21,6 +21,7 @@
           "metar_sync": "MetarSync",
           "metar_station": "MetarStation",
           "traffic": "Traffic",
+          "speed_limit_kmh": "SpeedLimitKmh",
           "timetable": "Timetable",
           "passengers": "Passengers",
           "passenger_density": "PassengerDensity",
@@ -29,6 +30,7 @@
           "max_players": "$MaxUsers",
           "tunnel": "Tunnel",
           "radius": "Radius",
+          "allow_player_teleport": "AllowPlayerTeleport",
           "share_positions": "SharePositions",
           "admin_password": "AdminPassword",
           "moderator_password": "ModeratorPassword",
@@ -37,14 +39,18 @@
           "admin_trusted_proxies": "AdminTrustedProxies",
           "admin_proxy_header": "AdminProxyHeader",
           "gateway_proxy_header": "GatewayProxyHeader",
-          "voice_channel": "VoiceChannel",
-          "voice_channel_password": "VoiceChannelPassword",
-          "voice_server_uid": "VoiceServerUid",
+          "voice": "Voice",
           "voice_range": "VoiceRange",
           "voice_radio": "VoiceRadio",
           "accept_uploads": "AcceptUploads",
           "uploads_keep_days": "UploadsKeepDays",
-          "share_maps": "ShareMaps"
+          "share_maps": "ShareMaps",
+          "public_server": "PublicServer",
+          "owner_bans": "OwnerBans",
+          "require_hardware_id": "RequireHardwareId",
+          "log_addresses": "LogAddresses",
+          "log_keep": "LogKeep",
+          "log_max_mb": "LogMaxMb"
         }
       }
     ]

@@ -11,23 +11,6 @@
     "Subcategory": "General:general:-2"
   },
   {
-    "DisplayName": "Disable Server Download",
-    "Category": "General",
-    "Description": "If set, the server files will not be automatically downloaded when the instance is updated. Turn this on if you upload the server files yourself (e.g. manually, or because this instance has no outbound internet access). Leave it off for the normal behaviour: Update downloads the selected version only if it isn't already installed.",
-    "Keywords": "disable,server,download,manual,disable-server-download",
-    "FieldName": "DisableServerDownload",
-    "InputType": "checkbox",
-    "ParamFieldName": "DisableServerDownload",
-    "IncludeInCommandLine": false,
-    "ExcludeFromImport": true,
-    "EnumValues": {
-      "False": "false",
-      "True": "true"
-    },
-    "DefaultValue": "false",
-    "Subcategory": "Updates:updates:4"
-  },
-  {
     "DisplayName": "Software rendering backend",
     "Description": "This server has no window and draws nothing, but still needs a graphics backend to initialize. On a host with no GPU (e.g. a bare-metal server), pick a Mesa software renderer: Vulkan (lavapipe) is the default and usually fastest; OpenGL (llvmpipe) is a fallback if Vulkan initialization fails. Both are installed automatically. If you have a real GPU available to the container, you generally do not need to change this.",
     "FieldName": "GraphicsBackend",
@@ -196,6 +179,22 @@
     "Subcategory": "World:world:-1"
   },
   {
+    "DisplayName": "Speed limit (km/h)",
+    "Description": "Optional multiplayer RP road-speed governor. 0 disables it (default); otherwise choose 60, 75 or 80.",
+    "FieldName": "SpeedLimitKmh",
+    "ParamFieldName": "speed_limit_kmh",
+    "Category": "General",
+    "InputType": "enum",
+    "EnumValues": {
+      "0": "Off",
+      "60": "60 km/h",
+      "75": "75 km/h",
+      "80": "80 km/h"
+    },
+    "DefaultValue": "0",
+    "Subcategory": "World:world:-1"
+  },
+  {
     "DisplayName": "Timetable",
     "Description": "Enables simulated timetable buses.",
     "FieldName": "Timetable",
@@ -298,6 +297,20 @@
     "Subcategory": "Network:network:1"
   },
   {
+    "DisplayName": "Allow player self-teleport",
+    "Description": "Lets ordinary players teleport their OWN bus (F4, minimap, entrypoints). Off: only authenticated moderators/admins can. Never moves another player.",
+    "FieldName": "AllowPlayerTeleport",
+    "ParamFieldName": "allow_player_teleport",
+    "Category": "General",
+    "InputType": "checkbox",
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
+    "DefaultValue": "False",
+    "Subcategory": "Network:network:1"
+  },
+  {
     "DisplayName": "Share player positions",
     "Description": "Enables GET /players (live map data: position, heading, speed). Off by default for privacy.",
     "FieldName": "SharePositions",
@@ -396,50 +409,35 @@
     "Subcategory": "Administration:admin:2"
   },
   {
-    "DisplayName": "Voice channel",
-    "Description": "GreenTeaSpeak channel id or name that players are moved into for proximity voice chat. Leave blank to disable voice chat.",
-    "FieldName": "VoiceChannel",
-    "ParamFieldName": "voice_channel",
+    "DisplayName": "Voice chat",
+    "Description": "Players who switched voice chat on in their settings talk with a key held: nearby (heard within Voice range metres, quieter with distance) or on the radio (whole session). The server only passes audio on; it records and decodes nothing.",
+    "FieldName": "Voice",
+    "ParamFieldName": "voice",
     "Category": "General",
-    "InputType": "text",
-    "DefaultValue": "",
-    "Subcategory": "Voice Chat:voice:3"
-  },
-  {
-    "DisplayName": "Voice channel password",
-    "Description": "Sent to every joining player so their game can enter the voice channel. Keeps strangers on the voice server out.",
-    "FieldName": "VoiceChannelPassword",
-    "ParamFieldName": "voice_channel_password",
-    "Category": "General",
-    "InputType": "password",
-    "DefaultValue": "",
-    "Subcategory": "Voice Chat:voice:3"
-  },
-  {
-    "DisplayName": "Voice server UID",
-    "Description": "The unique id of the GreenTeaSpeak voice server (shown in GreenTeaSpeak's server info panel). Required for voice chat to work.",
-    "FieldName": "VoiceServerUid",
-    "ParamFieldName": "voice_server_uid",
-    "Category": "General",
-    "InputType": "text",
-    "DefaultValue": "",
+    "InputType": "checkbox",
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
+    "DefaultValue": "True",
     "Subcategory": "Voice Chat:voice:3"
   },
   {
     "DisplayName": "Voice range (metres)",
-    "Description": "Maximum distance players can hear each other, muffled through bus bodywork.",
+    "Description": "How far the nearby voice channel carries, in metres (5 to 1000).",
     "FieldName": "VoiceRange",
     "ParamFieldName": "voice_range",
     "Category": "General",
     "InputType": "number",
-    "minValue": "1",
-    "DefaultValue": "20",
+    "minValue": "5",
+    "DefaultValue": "75",
     "Suffix": "m",
-    "Subcategory": "Voice Chat:voice:3"
+    "Subcategory": "Voice Chat:voice:3",
+    "maxValue": "1000"
   },
   {
     "DisplayName": "Bus radio",
-    "Description": "Gives drivers a bindable map-wide bus radio on top of proximity voice chat (default key: X). Only used when voice chat is configured.",
+    "Description": "Enables the session-wide voice radio channel on top of nearby voice chat.",
     "FieldName": "VoiceRadio",
     "ParamFieldName": "voice_radio",
     "Category": "General",
@@ -490,5 +488,97 @@
     },
     "DefaultValue": "False",
     "Subcategory": "Content:content:5"
+  },
+  {
+    "DisplayName": "List server publicly",
+    "Description": "Lists this server in the public server list shown by the launcher and the game (name, icon, map, players, MOTD). Your name, message and icon are checked by the same filters the players' games use.",
+    "FieldName": "PublicServer",
+    "ParamFieldName": "public_server",
+    "Category": "General",
+    "InputType": "checkbox",
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
+    "DefaultValue": "False",
+    "Subcategory": "Moderation:moderation:6"
+  },
+  {
+    "DisplayName": "Shared ban list file",
+    "Description": "Bans are by the player's machine, not by name. This session's own list is bans.json beside server.cfg. This field is the list of ALL your sessions, used by an admin's \"ban in all my sessions\" action. Leave blank to use ~/.openomsi/bans-owner.json (shared by every game and server you run from this account), or give a file to share one list between servers (e.g. a synced folder).",
+    "FieldName": "OwnerBans",
+    "ParamFieldName": "owner_bans",
+    "Category": "General",
+    "InputType": "text",
+    "DefaultValue": "",
+    "Subcategory": "Moderation:moderation:6"
+  },
+  {
+    "DisplayName": "Require hardware ID",
+    "Description": "Turns away players whose game does not send its machine identifier (older games, or players who switched it off). Needed for machine-based bans to be reliable.",
+    "FieldName": "RequireHardwareId",
+    "ParamFieldName": "require_hardware_id",
+    "Category": "General",
+    "InputType": "checkbox",
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
+    "DefaultValue": "False",
+    "Subcategory": "Moderation:moderation:6"
+  },
+  {
+    "DisplayName": "Log full IP addresses",
+    "Description": "server.log normally keeps only the network part of a player's internet address (e.g. 203.0.113.x); turn this on to log the whole address (useful for an abuse report). Addresses from the local network are always logged whole. Admin web logins and refused passwords always log the whole address, regardless of this setting.",
+    "FieldName": "LogAddresses",
+    "ParamFieldName": "log_addresses",
+    "Category": "General",
+    "InputType": "checkbox",
+    "EnumValues": {
+      "False": "0",
+      "True": "1"
+    },
+    "DefaultValue": "False",
+    "Subcategory": "Logging:logging:7"
+  },
+  {
+    "DisplayName": "Log files to keep",
+    "Description": "How many earlier server.log files are kept (server.1.log the newest). A new one begins at every start and when the current one passes Log file size limit. 0 keeps none.",
+    "FieldName": "LogKeep",
+    "ParamFieldName": "log_keep",
+    "Category": "General",
+    "InputType": "number",
+    "minValue": "0",
+    "DefaultValue": "5",
+    "Subcategory": "Logging:logging:7"
+  },
+  {
+    "DisplayName": "Log file size limit (MB)",
+    "Description": "A new server.log is begun once the current one passes this size. 0 means no size limit.",
+    "FieldName": "LogMaxMb",
+    "ParamFieldName": "log_max_mb",
+    "Category": "General",
+    "InputType": "number",
+    "minValue": "0",
+    "DefaultValue": "20",
+    "Suffix": "MB",
+    "Subcategory": "Logging:logging:7"
+  },
+  {
+    "DisplayName": "Disable Server Download",
+    "Category": "General",
+    "Description": "If set, the server files will not be automatically downloaded when the instance is updated. Turn this on if you upload the server files yourself (e.g. manually, or because this instance has no outbound internet access). Leave it off for the normal behaviour: Update downloads the selected version only if it isn't already installed.",
+    "Keywords": "disable,server,download,manual,disable-server-download",
+    "FieldName": "DisableServerDownload",
+    "InputType": "checkbox",
+    "ParamFieldName": "DisableServerDownload",
+    "IncludeInCommandLine": false,
+    "ExcludeFromImport": true,
+    "EnumValues": {
+      "False": "false",
+      "True": "true"
+    },
+    "DefaultValue": "false",
+    "Subcategory": "Updates:updates:4"
   }
 ]
