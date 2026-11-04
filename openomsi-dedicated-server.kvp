@@ -40,7 +40,7 @@ App.AppSettings={"OMSI2Path": "", "ServerVersion": "0.1.808", "GraphicsBackend":
 
 App.EnvironmentVariables={"WGPU_BACKEND": "{{GraphicsBackend}}", "LIBGL_ALWAYS_SOFTWARE": "1", "LP_NUM_THREADS": "4", "TZ": "{{TimeZone}}"}
 
-App.ExitMethod=CtrlC
+App.ExitMethod=OS_CLOSE
 App.ExitString=
 App.ExitTimeout=30
 App.RestartDelaySeconds=0
